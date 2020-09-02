@@ -209,6 +209,202 @@ git checkout release-3.11
 
 ```
 
+- build nfs server
+```
+
+[root@localhost ~]# fdisk -l
+
+Disk /dev/sda: 136.4 GB, 136365211648 bytes, 266338304 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+Disk label type: dos
+Disk identifier: 0x000d87dd
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *        2048     2099199     1048576   83  Linux
+/dev/sda2         2099200   266338303   132119552   8e  Linux LVM
+
+Disk /dev/sdb: 322.1 GB, 322122547200 bytes, 629145600 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+
+
+Disk /dev/mapper/centos-root: 53.7 GB, 53687091200 bytes, 104857600 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+
+
+Disk /dev/mapper/centos-swap: 2147 MB, 2147483648 bytes, 4194304 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+
+
+Disk /dev/mapper/centos-home: 79.4 GB, 79448506368 bytes, 155172864 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+
+[root@localhost ~]# fdisk /dev/sdb
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+Device does not contain a recognized partition table
+Building a new DOS disklabel with disk identifier 0x1bbb5e3d.
+
+The device presents a logical sector size that is smaller than
+the physical sector size. Aligning to a physical sector (or optimal
+I/O) size boundary is recommended, or performance may be impacted.
+
+Command (m for help): n
+Partition type:
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended
+Select (default p): p
+Partition number (1-4, default 1):
+First sector (2048-629145599, default 2048):
+Using default value 2048
+Last sector, +sectors or +size{K,M,G} (2048-629145599, default 629145599):
+Using default value 629145599
+Partition 1 of type Linux and of size 300 GiB is set
+
+Command (m for help): t
+Selected partition 1
+Hex code (type L to list all codes): 8
+Changed type of partition 'Linux' to 'AIX'
+
+Command (m for help): t
+Selected partition 1
+Hex code (type L to list all codes): 8e
+Changed type of partition 'AIX' to 'Linux LVM'
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+
+
+[root@localhost ~]# pvcreate /dev/sdb1
+  Physical volume "/dev/sdb1" successfully created.
+[root@localhost ~]# vgcreate nfs-vg /dev/sdb1
+  Volume group "nfs-vg" successfully created
+[root@localhost ~]# lvcreate -n nfs-lv -l 100%FREE nfs-vg
+  Logical volume "nfs-lv" created.
+
+
+[root@localhost ~]# lvdisplay
+  --- Logical volume ---
+  LV Path                /dev/centos/swap
+  LV Name                swap
+  VG Name                centos
+  LV UUID                oyWz6K-QE0y-aAMJ-692v-xVtw-NLLF-fSZFHV
+  LV Write Access        read/write
+  LV Creation host, time localhost, 2020-06-03 22:49:25 +0900
+  LV Status              available
+  # open                 2
+  LV Size                2.00 GiB
+  Current LE             512
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     8192
+  Block device           253:1
+
+  --- Logical volume ---
+  LV Path                /dev/centos/home
+  LV Name                home
+  VG Name                centos
+  LV UUID                cbs4Ks-fBj8-uQd0-tv61-mVZg-rs1H-cjhNPM
+  LV Write Access        read/write
+  LV Creation host, time localhost, 2020-06-03 22:49:26 +0900
+  LV Status              available
+  # open                 1
+  LV Size                73.99 GiB
+  Current LE             18942
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     8192
+  Block device           253:2
+
+  --- Logical volume ---
+  LV Path                /dev/centos/root
+  LV Name                root
+  VG Name                centos
+  LV UUID                9kxHcF-ClDK-XBda-iyGd-K9qV-cS7o-mFqzOG
+  LV Write Access        read/write
+  LV Creation host, time localhost, 2020-06-03 22:49:26 +0900
+  LV Status              available
+  # open                 1
+  LV Size                50.00 GiB
+  Current LE             12800
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     8192
+  Block device           253:0
+
+  --- Logical volume ---
+  LV Path                /dev/nfs-vg/nfs-lv
+  LV Name                nfs-lv
+  VG Name                nfs-vg
+  LV UUID                78Wjzy-Uee5-O9zd-pTSj-rZL4-HDeE-XWwRpn
+  LV Write Access        read/write
+  LV Creation host, time l1-03-nfs1.cluster1.dslee.lab, 2020-09-02 23:23:18 +0900
+  LV Status              available
+  # open                 0
+  LV Size                <300.00 GiB
+  Current LE             76799
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     8192
+  Block device           253:3
+
+[root@localhost ~]# mkfs.xfs /dev/nfs-vg/nfs-lv
+meta-data=/dev/nfs-vg/nfs-lv     isize=512    agcount=4, agsize=19660544 blks
+         =                       sectsz=4096  attr=2, projid32bit=1
+         =                       crc=1        finobt=0, sparse=0
+data     =                       bsize=4096   blocks=78642176, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0 ftype=1
+log      =internal log           bsize=4096   blocks=38399, version=2
+         =                       sectsz=4096  sunit=1 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+[root@localhost ~]# fsck -y /dev/nfs-vg/nfs-lv
+fsck from util-linux 2.23.2
+/sbin/fsck.xfs: XFS file system.
+
+
+[root@localhost ~]# mkdir /volumes
+[root@localhost ~]# mount /dev/nfs-vg/nfs-lv /volumes
+[root@localhost ~]# vi /etc/fstab
+
+[root@localhost volumes]# cat /etc/fstab
+
+#
+# /etc/fstab
+# Created by anaconda on Wed Jun  3 09:49:27 2020
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+#
+/dev/mapper/centos-root /                       xfs     defaults        0 0
+UUID=b8a4849b-8210-46c5-85f9-34b3371e0a92 /boot                   xfs     defaults        0 0
+/dev/mapper/centos-home /home                   xfs     defaults        0 0
+/dev/mapper/centos-swap swap                    swap    defaults        0 0
+/dev/nfs-vg/nfs-lv      /volumes        xfs     defaults        0 0
+
+
+```
+
+
 ## Verify Check 
 ```
 # dns query
