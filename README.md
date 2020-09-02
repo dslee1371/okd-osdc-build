@@ -4,6 +4,7 @@
 cluster1.dslee.lab
 
 ## Host
+```
 l1-01-base1.cluster1.dslee.lab, 10.0.0.1 , 192.168.1.59
 l1-02-lb1.cluster1.dslee.lab, 10.0.0.2
 l1-03-nfs1.cluster1.dslee.lab, 10.0.0.3
@@ -14,8 +15,10 @@ l1-41-infra1.cluster1.dslee.lab, 10.0.0.41
 l1-42-infra2.cluster2.dslee.lab, 10.0.0.42
 l1-71-node1.cluster1.dslee.lab, 10.0.0.71
 l1-72-node2.cluster1.dslee.lab, 10.0.0.72
+```
 
 ## VM
+```
 l1-01-base1 - DNS/Musquarade/HA Proxy - 130g/200g/200g (OS/Docker/Yum), 4c 4G,/d/
 l1-02-lb1 - Load Balancer - 130g, 2c 2G,/e/
 l1-31-master1 - Master - 130g/200g, 4c 16G,/d/
@@ -25,6 +28,7 @@ l1-41-infra - Infra - 130g/200g,4c 4G,/d/
 l1-42-infra - Infra - 130g/200g,4c 5G,/e/
 l1-71-node1 - Compute - 130g/200g,4c 8G,/d/
 l1-72-node2 - Compute - 130g/200g,4c 8G,/e/
+```
 
 ## Install
 - hyper-v add disk 200g : docker image, 200g : yum package 
