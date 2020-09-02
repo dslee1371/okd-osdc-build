@@ -406,6 +406,54 @@ UUID=b8a4849b-8210-46c5-85f9-34b3371e0a92 /boot                   xfs     defaul
 /dev/mapper/centos-swap swap                    swap    defaults        0 0
 /dev/nfs-vg/nfs-lv      /volumes        xfs     defaults        0 0
 
+yum install nfs-utils libnfsidmap 
+systemctl enable rpcbind
+systemctl enable nfs-server
+
+systemctl start rpcbind
+systemctl start nfs-server
+systemctl start rpc-statd
+systemctl start nfs-idmapd
+systemctl enable nfs.service
+systemctl start nfs.service
+chkconfig nfs on
+
+firewall-cmd --permanent --zone=public --add-service=mountd
+firewall-cmd --permanent --zone=public --add-service=rpc-bind
+firewall-cmd --permanent --zone=public --add-service=nfs
+firewall-cmd --reload
+
+
+mkdir -p /volumes/registry
+chmod 750 /volumes/registry
+chown nfsnobody:nfsnobody /volumes/registry
+vi /etc/exports
+/volumes/registry *(rw,async,all_squash)
+exportfs -a
+
+setsebool -P virt_use_nfs on  (server, client 둘다 등록)
+
+# nfs 공유 access 허용 방화벽 규칙 구성  (server, client 둘다 등록)
+-------------------------------------------------------------
+iptables -I INPUT 1 -p tcp --dport 53248 -j ACCEPT
+iptables -I INPUT 1 -p tcp --dport 50825 -j ACCEPT
+iptables -I INPUT 1 -p tcp --dport 20048 -j ACCEPT
+iptables -I INPUT 1 -p tcp --dport 2049 -j ACCEPT
+iptables -I INPUT 1 -p tcp --dport 111 -j ACCEPT
+iptables-save > /etc/sysconfig/iptables
+exportfs -r
+exportfs -v
+
+chcon -R unconfined_u:object_r:svirt_sandbox_file_t:s0 /volumes
+client)
+mount -t nfs dns.devops.cloud:/volumes /mnt
+mount -t nfs ocpcloudlb.ocp.cloud:/volumes /mnt
+
+# client 공유확인
+yum install showmount
+showmount -e 172.10.10.70
+
+
 
 ```
 
