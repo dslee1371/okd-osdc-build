@@ -21,6 +21,7 @@ l1-72-node2.cluster1.dslee.lab, 10.0.0.72
 ```
 l1-01-base1 - DNS/Musquarade/HA Proxy - 130g/200g/200g (OS/Docker/Yum), 4c 4G,/d/
 l1-02-lb1 - Load Balancer - 130g, 2c 2G,/e/
+l1-03-nfs1 - NFS - 130g/300g, 4c 2g, /e/
 l1-31-master1 - Master - 130g/200g, 4c 16G,/d/
 l1-32-master2 - Master - 130g/200g,4c 16G,/e/
 l1-33-master3 - Master - 130g/200g,4c 16G,/e/
