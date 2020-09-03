@@ -451,7 +451,7 @@ mount -t nfs ocpcloudlb.ocp.cloud:/volumes /mnt
 
 # client 공유확인
 yum install showmount
-showmount -e 172.10.10.70
+showmount -e 10.0.0.3
 
 
 
