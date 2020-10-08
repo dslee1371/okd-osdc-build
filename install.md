@@ -1,5 +1,12 @@
 # install commands
 
+## check kubenetes engine version
+```
+root@l1-31-master1:~# kubectl version
+Client Version: version.Info{Major:"1", Minor:"11+", GitVersion:"v1.11.0+d4cacc0", GitCommit:"d4cacc0", GitTreeState:"clean", BuildDate:"2018-10-15T09:45:30Z", GoVersion:"go1.10.2", Compiler:"gc", Platform:"linux/amd64"}
+Server Version: version.Info{Major:"1", Minor:"11+", GitVersion:"v1.11.0+d4cacc0", GitCommit:"d4cacc0", GitTreeState:"clean", BuildDate:"2020-09-10T17:21:18Z", GoVersion:"go1.10.8", Compiler:"gc", Platform:"linux/amd64"}
+```
+
 ##  configure htpasswd
 ``` 
 htpasswd -cb /etc/origin/master/htpasswd ocpadmin test1234!

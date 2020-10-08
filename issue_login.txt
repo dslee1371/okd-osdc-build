@@ -1,0 +1,91 @@
+[root@l1-32-master2 ~]# oc login
+Error from server (InternalError): Internal error occurred: unexpected response: 400
+
+[root@l1-32-master2 ~]# oc login --loglevel=10
+I1008 12:22:26.015238   73346 loader.go:359] Config loaded from file /root/.kube/config
+I1008 12:22:26.016010   73346 loader.go:359] Config loaded from file /root/.kube/config
+I1008 12:22:26.016257   73346 round_trippers.go:386] curl -k -v -XHEAD  'https://ose3-lb.cluster1.dslee.lab:8443/'
+I1008 12:22:26.023350   73346 round_trippers.go:405] HEAD https://ose3-lb.cluster1.dslee.lab:8443/ 403 Forbidden in 7 milliseconds
+I1008 12:22:26.023388   73346 round_trippers.go:411] Response Headers:
+I1008 12:22:26.023394   73346 round_trippers.go:414]     Cache-Control: no-store
+I1008 12:22:26.023399   73346 round_trippers.go:414]     Content-Type: application/json
+I1008 12:22:26.023404   73346 round_trippers.go:414]     X-Content-Type-Options: nosniff
+I1008 12:22:26.023409   73346 round_trippers.go:414]     Content-Length: 210
+I1008 12:22:26.023414   73346 round_trippers.go:414]     Date: Thu, 08 Oct 2020 03:22:26 GMT
+I1008 12:22:26.023462   73346 round_trippers.go:386] curl -k -v -XGET  -H "X-Csrf-Token: 1" 'https://ose3-lb.cluster1.dslee.lab:8443/.well-known/oauth-authorization-server'
+I1008 12:22:26.024424   73346 round_trippers.go:405] GET https://ose3-lb.cluster1.dslee.lab:8443/.well-known/oauth-authorization-server 200 OK in 0 milliseconds
+I1008 12:22:26.024471   73346 round_trippers.go:411] Response Headers:
+I1008 12:22:26.024480   73346 round_trippers.go:414]     Content-Type: application/json
+I1008 12:22:26.024487   73346 round_trippers.go:414]     Content-Length: 588
+I1008 12:22:26.024522   73346 round_trippers.go:414]     Date: Thu, 08 Oct 2020 03:22:26 GMT
+I1008 12:22:26.024532   73346 round_trippers.go:414]     Cache-Control: no-store
+I1008 12:22:26.024648   73346 round_trippers.go:386] curl -k -v -XGET  -H "X-Csrf-Token: 1" 'https://l1-31-master1.cluster1.dslee.lab:8443/oauth/authorize?client_id=openshift-challenging-client&code_challenge=rZBoKevM5_eaaW_KwcM_QxQ1ML4iTwsQB2NpA6JIiGA&code_challenge_method=S256&redirect_uri=https%3A%2F%2Fl1-31-master1.cluster1.dslee.lab%3A8443%2Foauth%2Ftoken%2Fimplicit&response_type=code'
+I1008 12:22:26.031982   73346 round_trippers.go:405] GET https://l1-31-master1.cluster1.dslee.lab:8443/oauth/authorize?client_id=openshift-challenging-client&code_challenge=rZBoKevM5_eaaW_KwcM_QxQ1ML4iTwsQB2NpA6JIiGA&code_challenge_method=S256&redirect_uri=https%3A%2F%2Fl1-31-master1.cluster1.dslee.lab%3A8443%2Foauth%2Ftoken%2Fimplicit&response_type=code 400 Bad Request in 7 milliseconds
+I1008 12:22:26.032032   73346 round_trippers.go:411] Response Headers:
+I1008 12:22:26.032043   73346 round_trippers.go:414]     X-Xss-Protection: 1; mode=block
+I1008 12:22:26.032049   73346 round_trippers.go:414]     Expires: 0
+I1008 12:22:26.032054   73346 round_trippers.go:414]     Expires: Fri, 01 Jan 1990 00:00:00 GMT
+I1008 12:22:26.032059   73346 round_trippers.go:414]     Pragma: no-cache
+I1008 12:22:26.032064   73346 round_trippers.go:414]     Pragma: no-cache
+I1008 12:22:26.032069   73346 round_trippers.go:414]     Referrer-Policy: strict-origin-when-cross-origin
+I1008 12:22:26.032073   73346 round_trippers.go:414]     X-Content-Type-Options: nosniff
+I1008 12:22:26.032078   73346 round_trippers.go:414]     X-Dns-Prefetch-Control: off
+I1008 12:22:26.032086   73346 round_trippers.go:414]     X-Frame-Options: DENY
+I1008 12:22:26.032091   73346 round_trippers.go:414]     Content-Length: 196
+I1008 12:22:26.032096   73346 round_trippers.go:414]     Date: Thu, 08 Oct 2020 03:22:26 GMT
+I1008 12:22:26.032101   73346 round_trippers.go:414]     Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+I1008 12:22:26.032106   73346 round_trippers.go:414]     Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+I1008 12:22:26.032111   73346 round_trippers.go:414]     Content-Type: application/json
+I1008 12:22:26.032535   73346 helpers.go:201] server response object: [{
+  "metadata": {},
+  "status": "Failure",
+  "message": "Internal error occurred: unexpected response: 400",
+  "reason": "InternalError",
+  "details": {
+    "causes": [
+      {
+        "message": "unexpected response: 400"
+      }
+    ]
+  },
+  "code": 500
+}]
+F1008 12:22:26.032623   73346 helpers.go:119] Error from server (InternalError): Internal error occurred: unexpected response: 400
+
+
+root@l1-31-master1:~# oc login --loglevel=10
+I1008 12:25:47.480205   77471 loader.go:359] Config loaded from file /root/.kube/config
+I1008 12:25:47.481096   77471 loader.go:359] Config loaded from file /root/.kube/config
+I1008 12:25:47.481322   77471 round_trippers.go:386] curl -k -v -XHEAD  'https://ose3-lb.cluster1.dslee.lab:8443/'
+I1008 12:25:47.488494   77471 round_trippers.go:405] HEAD https://ose3-lb.cluster1.dslee.lab:8443/ 403 Forbidden in 7 milliseconds
+I1008 12:25:47.488523   77471 round_trippers.go:411] Response Headers:
+I1008 12:25:47.488530   77471 round_trippers.go:414]     Cache-Control: no-store
+I1008 12:25:47.488536   77471 round_trippers.go:414]     Content-Type: application/json
+I1008 12:25:47.488541   77471 round_trippers.go:414]     X-Content-Type-Options: nosniff
+I1008 12:25:47.488566   77471 round_trippers.go:414]     Content-Length: 210
+I1008 12:25:47.488571   77471 round_trippers.go:414]     Date: Thu, 08 Oct 2020 03:25:47 GMT
+I1008 12:25:47.488653   77471 round_trippers.go:386] curl -k -v -XGET  -H "X-Csrf-Token: 1" 'https://ose3-lb.cluster1.dslee.lab:8443/.well-known/oauth-authorization-server'
+I1008 12:25:47.489632   77471 round_trippers.go:405] GET https://ose3-lb.cluster1.dslee.lab:8443/.well-known/oauth-authorization-server 200 OK in 0 milliseconds
+I1008 12:25:47.489671   77471 round_trippers.go:411] Response Headers:
+I1008 12:25:47.489708   77471 round_trippers.go:414]     Content-Length: 588
+I1008 12:25:47.489716   77471 round_trippers.go:414]     Date: Thu, 08 Oct 2020 03:25:47 GMT
+I1008 12:25:47.489722   77471 round_trippers.go:414]     Cache-Control: no-store
+I1008 12:25:47.489726   77471 round_trippers.go:414]     Content-Type: application/json
+I1008 12:25:47.489840   77471 round_trippers.go:386] curl -k -v -XGET  -H "X-Csrf-Token: 1" 'https://l1-33-master3.cluster1.dslee.lab:8443/oauth/authorize?client_id=openshift-challenging-client&code_challenge=chcpfyfkjk00hWCnZJakR7K9lZ3xROIDqUkMKn-KZkE&code_challenge_method=S256&redirect_uri=https%3A%2F%2Fl1-33-master3.cluster1.dslee.lab%3A8443%2Foauth%2Ftoken%2Fimplicit&response_type=code'
+I1008 12:25:47.497609   77471 round_trippers.go:405] GET https://l1-33-master3.cluster1.dslee.lab:8443/oauth/authorize?client_id=openshift-challenging-client&code_challenge=chcpfyfkjk00hWCnZJakR7K9lZ3xROIDqUkMKn-KZkE&code_challenge_method=S256&redirect_uri=https%3A%2F%2Fl1-33-master3.cluster1.dslee.lab%3A8443%2Foauth%2Ftoken%2Fimplicit&response_type=code 401 Unauthorized in 7 milliseconds
+I1008 12:25:47.497692   77471 round_trippers.go:411] Response Headers:
+I1008 12:25:47.497700   77471 round_trippers.go:414]     X-Content-Type-Options: nosniff
+I1008 12:25:47.497707   77471 round_trippers.go:414]     X-Dns-Prefetch-Control: off
+I1008 12:25:47.497713   77471 round_trippers.go:414]     Date: Thu, 08 Oct 2020 03:25:47 GMT
+I1008 12:25:47.497718   77471 round_trippers.go:414]     Referrer-Policy: strict-origin-when-cross-origin
+I1008 12:25:47.497725   77471 round_trippers.go:414]     Www-Authenticate: Basic realm="openshift"
+I1008 12:25:47.497730   77471 round_trippers.go:414]     X-Frame-Options: DENY
+I1008 12:25:47.497734   77471 round_trippers.go:414]     X-Xss-Protection: 1; mode=block
+I1008 12:25:47.497739   77471 round_trippers.go:414]     Content-Type: text/plain; charset=utf-8
+I1008 12:25:47.497750   77471 round_trippers.go:414]     Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+I1008 12:25:47.497759   77471 round_trippers.go:414]     Expires: 0
+I1008 12:25:47.497785   77471 round_trippers.go:414]     Pragma: no-cache
+I1008 12:25:47.497794   77471 round_trippers.go:414]     Content-Length: 0
+Authentication required for https://ose3-lb.cluster1.dslee.lab:8443 (openshift)
+Username:
+
