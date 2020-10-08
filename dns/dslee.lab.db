@@ -1,0 +1,32 @@
+$ORIGIN .
+$TTL 86400 ; 1 seconds (for testing only)
+dslee.lab IN SOA dns.dslee.lab. hostmaster.dslee.lab. (
+                   2015051404 ; serial
+                   3H ; refresh
+                   15 ; retry
+                   1W ; expire
+                   3H ; minimum (10 seconds)
+                   )
+                   NS dns.cluster1.dslee.lab.
+                   A 10.0.0.1
+$ORIGIN apps.cluster1.dslee.lab.
+$TTL 180        ; 3 minutes
+*             IN      A       10.0.0.41
+$ORIGIN cluster1.dslee.lab.
+$TTL 180        ; 3 minutes
+paasmaster      IN      A     10.0.0.31
+$TTL 3600       ; 1 hour
+l1-01-base1      IN      A       10.0.0.1
+l1-02-lb1      IN      A       10.0.0.2
+l1-03-nfs1      IN      A       10.0.0.3
+l1-31-master1      IN      A       10.0.0.31
+l1-32-master2      IN      A       10.0.0.32
+l1-33-master3      IN      A       10.0.0.33
+l1-41-infra1    IN      A       10.0.0.41
+l1-42-infra2    IN      A       10.0.0.42
+l1-71-node1        IN      A       10.0.0.71
+l1-72-node2        IN      A       10.0.0.72
+dns           IN      A       10.0.0.1
+ose3-lb IN      A       10.0.0.2
+console IN      A       10.0.0.2
+

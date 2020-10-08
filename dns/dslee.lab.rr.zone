@@ -1,0 +1,22 @@
+$ORIGIN 0.0.10.in-addr.arpa.
+$TTL 3600
+@       IN      SOA     dns.dslee.lab. hostmaster.dslee.lab. (
+                        2001062501 ; serial
+                        60         ; refresh (1 minute)
+                        15         ; retry (15 seconds)
+                        1800       ; expire (30 minutes)
+                        10         ; minimum (10 seconds)
+                        )
+;
+@       IN      NS      dns.dslee.lab.
+;
+2     IN      PTR     paasmaster.cluser1.dslee.lab.
+
+31     IN      PTR     l1-31-master1.cluser1.dslee.lab.
+32     IN      PTR     l1-32-master2.cluser1.dslee.lab.
+33     IN      PTR     l1-33-master3.cluser1.dslee.lab.
+71     IN      PTR     l1-71-node1.cluser1.dslee.lab.
+72     IN      PTR     l1-72-node2.cluser1.dslee.lab.
+1     IN      PTR     dns.cluser1.dslee.lab.
+
+
