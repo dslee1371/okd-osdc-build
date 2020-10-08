@@ -27,10 +27,10 @@ l1-72-node2.cluster1.dslee.lab openshift_node_group_name="node-config-compute"
 
 
 [nfs]
-l1-03-nfs1.cluster1.dslee.lab
+ose3-master1.test.example.com
 
 [lb]
-l1-02-lb1.cluster1.dslee.lab
+ose3-lb.test.example.com
 
 # Create an OSEv3 group that contains the masters and nodes groups
 [OSEv3:children]
@@ -67,10 +67,10 @@ openshift_deployment_type=origin
 # default subdomain to use for exposed routes, you should have wildcard dns
 # for *.apps.test.example.com that points at your infra nodes which will run
 # your router
-openshift_master_default_subdomain=apps.cluster1.dslee.lab
+openshift_master_default_subdomain=apps.test.example.com
 
 #Set cluster_hostname to point at your load balancer
-openshift_master_cluster_hostname=ose3-lb.cluster1.dslee.lab
+openshift_master_cluster_hostname=ose3-lb.test.example.com
 
 
 
@@ -209,9 +209,9 @@ debug_level=2
 #osm_etcd_image=registry.example.com/rhel7/etcd
 
 # htpasswd auth
-openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
+#openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
 # Defining htpasswd users
-openshift_master_htpasswd_users={'ocpadmin': 'test12341!', 'ocpadmin2': 'test12341!'}
+#openshift_master_htpasswd_users={'user1': '<pre-hashed password>', 'user2': '<pre-hashed password>'}
 # or
 #openshift_master_htpasswd_file=<path to local pre-generated htpasswd file>
 
@@ -674,7 +674,7 @@ openshift_master_htpasswd_users={'ocpadmin': 'test12341!', 'ocpadmin2': 'test123
 # Cluster monitoring
 #
 # Cluster monitoring is enabled by default, disable it by setting
-openshift_cluster_monitoring_operator_install=false
+# openshift_cluster_monitoring_operator_install=false
 #
 # Cluster monitoring configuration variables allow setting the amount of
 # storage and storageclass requested through PersistentVolumeClaims.

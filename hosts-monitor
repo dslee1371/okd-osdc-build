@@ -596,6 +596,13 @@ openshift_master_htpasswd_users={'ocpadmin': 'test12341!', 'ocpadmin2': 'test123
 # deployed.  Deploying metrics-server is necessary to use the HorizontalPodAutoscaler.
 # Set this to enable it.
 #openshift_metrics_server_install=true
+openshift_metrics_install_metrics=true
+openshift_metrics_cassandra_storage_type=pv
+openshift_metrics_cassandra_pvc_size=500Gi
+openshift_metrics_hawkular_nodeselector={"node-role.kubernetes.io/infra": "true"}
+openshift_metrics_cassandra_nodeselector={"node-role.kubernetes.io/infra": "true"}
+openshift_metrics_heapster_nodeselector={"node-role.kubernetes.io/infra": "true"}
+
 #
 # Storage Options
 # If openshift_metrics_storage_kind is unset then metrics will be stored
@@ -674,7 +681,7 @@ openshift_master_htpasswd_users={'ocpadmin': 'test12341!', 'ocpadmin2': 'test123
 # Cluster monitoring
 #
 # Cluster monitoring is enabled by default, disable it by setting
-openshift_cluster_monitoring_operator_install=false
+# openshift_cluster_monitoring_operator_install=false
 #
 # Cluster monitoring configuration variables allow setting the amount of
 # storage and storageclass requested through PersistentVolumeClaims.
@@ -688,7 +695,14 @@ openshift_cluster_monitoring_operator_install=false
 # Update the time to wait for CRD to be creating by setting
 # openshift_cluster_monitoring_operator_crd_retries=30
 # openshift_cluster_monitoring_operator_crd_delay=30
+openshift_cluster_monitoring_operator_install=true
+openshift_cluster_monitoring_operator_node_selector={"node-role.kubernetes.io/infra": "true"}
 
+openshift_cluster_monitoring_operator_prometheus_storage_enabled=true
+openshift_cluster_monitoring_operator_prometheus_storage_capacity=500Gi
+
+openshift_cluster_monitoring_operator_alertmanager_storage_enabled=true
+openshift_cluster_monitoring_operator_alertmanager_storage_capacity=20Gi
 
 # Logging deployment
 #

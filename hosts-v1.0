@@ -211,9 +211,9 @@ debug_level=2
 # htpasswd auth
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
 # Defining htpasswd users
-openshift_master_htpasswd_users={'ocpadmin': 'test12341!', 'ocpadmin2': 'test12341!'}
+#openshift_master_htpasswd_users={'ocpadmin': 'test12341!', 'ocpadmin2': 'test12341!'}
 # or
-#openshift_master_htpasswd_file=<path to local pre-generated htpasswd file>
+openshift_master_htpasswd_file='/etc/origin/master/htpasswd'
 
 # Allow all auth
 #openshift_master_identity_providers=[{'name': 'allow_all', 'login': 'true', 'challenge': 'true', 'kind': 'AllowAllPasswordIdentityProvider'}]
@@ -589,13 +589,13 @@ openshift_master_htpasswd_users={'ocpadmin': 'test12341!', 'ocpadmin2': 'test123
 # See: https://docs.openshift.com/container-platform/latest/install_config/cluster_metrics.html
 #
 # By default metrics are not automatically deployed, set this to enable them
-#openshift_metrics_install_metrics=true
+openshift_metrics_install_metrics=true
 #
 # metrics-server deployment
 # By default, metrics-server is not automatically deployed, unless metrics is also
 # deployed.  Deploying metrics-server is necessary to use the HorizontalPodAutoscaler.
 # Set this to enable it.
-#openshift_metrics_server_install=true
+openshift_metrics_server_install=true
 #
 # Storage Options
 # If openshift_metrics_storage_kind is unset then metrics will be stored
@@ -674,7 +674,7 @@ openshift_master_htpasswd_users={'ocpadmin': 'test12341!', 'ocpadmin2': 'test123
 # Cluster monitoring
 #
 # Cluster monitoring is enabled by default, disable it by setting
-openshift_cluster_monitoring_operator_install=false
+# openshift_cluster_monitoring_operator_install=false
 #
 # Cluster monitoring configuration variables allow setting the amount of
 # storage and storageclass requested through PersistentVolumeClaims.
@@ -693,7 +693,7 @@ openshift_cluster_monitoring_operator_install=false
 # Logging deployment
 #
 # Currently logging deployment is disabled by default, enable it by setting this
-#openshift_logging_install_logging=true
+openshift_logging_install_logging=true
 #
 # Logging storage config
 # Option A - NFS Host Group

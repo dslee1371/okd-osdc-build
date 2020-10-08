@@ -48,6 +48,11 @@ nfs
 # password. If using ssh key based auth, then the key should be managed by an
 # ssh agent.
 ansible_user=root
+ansible_python_interpreter=/usr/bin/python2.7
+ansible_ssh_private_key_file=~/.ssh/id_rsa
+openshift_release="3.11"
+openshift_disable_check=memory_availability,docker_storage,docker_image_availability,disk_availability
+
 
 # If ansible_user is not root, ansible_become must be set to true and the
 # user must be configured for passwordless sudo
@@ -72,8 +77,25 @@ openshift_master_default_subdomain=apps.cluster1.dslee.lab
 #Set cluster_hostname to point at your load balancer
 openshift_master_cluster_hostname=ose3-lb.cluster1.dslee.lab
 
+openshift_master_cluster_method=native
 
+openshift_master_cluster_public_hostname=paasmaster.cluster1.dslee.lab #OKD웹콘솔 노출 URL
 
+openshift_public_hostname=console.cluster1.dslee.lab
+
+openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
+
+openshift_master_api_port=8443 #OKD API 포트
+
+openshift_master_console_port=8443 #OKD console API 포트
+
+# Hostname Validate
+#
+# openshift_set_hostname=false
+#
+# openshift_hostname_check=false
+#
+# openshift_override_hostname_check=true
 ###############################################################################
 # Additional configuration variables follow                                   #
 ###############################################################################
@@ -209,11 +231,11 @@ debug_level=2
 #osm_etcd_image=registry.example.com/rhel7/etcd
 
 # htpasswd auth
-openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
+#openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
 # Defining htpasswd users
-openshift_master_htpasswd_users={'ocpadmin': 'test12341!', 'ocpadmin2': 'test12341!'}
+# openshift_master_htpasswd_users={'ocpadmin': 'test12341!', 'ocpadmin2': 'test12341!'}
 # or
-#openshift_master_htpasswd_file=<path to local pre-generated htpasswd file>
+#openshift_master_htpasswd_file=''
 
 # Allow all auth
 #openshift_master_identity_providers=[{'name': 'allow_all', 'login': 'true', 'challenge': 'true', 'kind': 'AllowAllPasswordIdentityProvider'}]
@@ -674,7 +696,7 @@ openshift_master_htpasswd_users={'ocpadmin': 'test12341!', 'ocpadmin2': 'test123
 # Cluster monitoring
 #
 # Cluster monitoring is enabled by default, disable it by setting
-openshift_cluster_monitoring_operator_install=false
+# openshift_cluster_monitoring_operator_install=false
 #
 # Cluster monitoring configuration variables allow setting the amount of
 # storage and storageclass requested through PersistentVolumeClaims.
