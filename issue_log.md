@@ -171,7 +171,7 @@ fatal: [l1-31-master1.cluster1.dslee.lab]: FAILED! => {"msg": "last_checked_host
 openshift_enable_unsupported_configurations=True
 ```
 
-## Logging ansibl failed
+## Logging ansible failed
 
 ```
 [Issue - enable loggin ]
@@ -183,7 +183,18 @@ fatal: [l1-31-master1.cluster1.dslee.lab]: FAILED! => {
     "evaluated_to": false,
     "msg": "A node selector is required for Elasticsearch pods, please specify one with openshift_logging_es_nodeselector"
 
--- solution
+[solution]
 node-role.kubernetes.io/infra=true
 > openshift_logging_es_nodeselector={"node-role.kubernetes.io/infra":"true"}
+```
+
+## Hyper-v issue logs
+
+```
+[Issue]
+stuck stop vm
+
+[solutions]
+process stop vmwp.exe < no effort, restart vm, power off
+process stop vmms.exe < entire 
 ```
