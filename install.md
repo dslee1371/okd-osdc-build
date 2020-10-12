@@ -85,3 +85,13 @@ ansible-playbook -i /etc/ansible/hosts-logging-v0.2 /usr/share/ansible/openshift
 edit hosts-logging-v0.2
 ansible-playbook -i /etc/ansible/hosts-logging-v0.2 /usr/share/ansible/openshift-ansible/playbooks/openshift-logging/config.yml 
 ```
+
+
+## Registry persistant volume
+```
+oc set volume deploymentconfigs/docker-registry --add --name=registry-storage -t pvc \
+     --claim-name=registry --overwrite
+```
+
+
+
